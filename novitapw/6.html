@@ -520,9 +520,10 @@
   .gallery-title{
     font-family:'Playfair Display',serif;
     font-weight:700;
-    font-size:clamp(24px,5vw,32px);
+    font-size:clamp(28px,6vw,36px);
     color:var(--plum-deep);
     margin:0 0 22px;
+    text-shadow:0 0 6px #FFF4E9,0 0 12px #FFF4E9;
   }
   .polaroids{
     display:grid;
@@ -616,7 +617,7 @@
   .slide.active .signature{animation:fadeUp .9s ease .8s both;}
   .slide.active .miss-you{animation:wobble 1.6s ease-in-out 1s infinite;}
 
-  .tap-hint{font-size:12px;color:var(--plum);opacity:.7;margin:0;}
+  .tap-hint{font-size:clamp(18px,5vw,22px);font-weight:700;color:var(--plum-deep);opacity:1;margin:18px 0 0;text-shadow:0 0 6px #FFF4E9,0 0 12px #FFF4E9,0 0 2px #FFF4E9;}
 
   @media (max-width:480px){
     .slide{padding:32px 20px 120px;}
@@ -671,7 +672,7 @@
       <p class="timer-big" id="timerDays">0</p>
       <p class="timer-label">hari ✨</p>
       <p class="timer-clock" id="timerClock"></p>
-      <p class="msg" style="font-size:20px;margin-top:24px">Dan masih banyak hari lain lagi yang aku harap kita lewati bersama 💕</p>
+      <p class="msg" style="font-size:20px;margin-top:24px">Dan masih banyak hari lain yang ingin kita lewati bersama 💕</p>
     </div>
 
     <!-- 5: tiup lilin (fitur 25) -->
@@ -699,7 +700,7 @@
     <div class="slide" data-type="gallery">
       <p class="gallery-title">Kenangan kita 📸</p>
       <div class="polaroids" id="polaroids"></div>
-      <p class="tap-hint">Ketuk foto untuk melihat ceritannya </p>
+      <p class="tap-hint">Ketuk foto untuk melihat ceritanya</p>
     </div>
 
     <!-- 8: foto & penutup -->
