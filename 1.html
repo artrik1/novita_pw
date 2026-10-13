@@ -676,6 +676,9 @@
   .secret{font-family:'Caveat',cursive;font-style:normal;font-size:clamp(24px,5.5vw,30px);}
   #lbCap{font-family:'Dancing Script',cursive;font-size:clamp(22px,5vw,28px);font-style:normal;font-weight:700;}
 
+  /* beri ruang untuk nyala lilin agar teks tidak tertutup */
+  .slide[data-type="candle"] .prompt{margin:0 0 70px;}
+
   .tap-hint{font-size:clamp(18px,5vw,22px);font-weight:700;color:var(--plum-deep);opacity:1;margin:18px 0 0;text-shadow:0 0 6px #FFF4E9,0 0 12px #FFF4E9,0 0 2px #FFF4E9;}
 
   @media (max-width:480px){
@@ -806,12 +809,12 @@
 
     // Galeri kenangan (foto ada di folder foto/). GANTI caption dengan cerita kalian.
     const GALLERY = [
-      { src: 'foto/1.jpg', caption: 'Kenangan #1 — ganti dengan ceritamu' },
-      { src: 'foto/2.jpg', caption: 'Kenangan #2 — ganti dengan ceritamu' },
-      { src: 'foto/3.jpg', caption: 'Kenangan #3 — ganti dengan ceritamu' },
-      { src: 'foto/4.jpg', caption: 'Kenangan #4 — ganti dengan ceritamu' },
-      { src: 'foto/5.jpg', caption: 'Kenangan #5 — ganti dengan ceritamu' },
-      { src: 'foto/6.jpg', caption: 'Kenangan #6 — ganti dengan ceritamu' }
+      { src: 'foto/1.jpg', caption: 'Ini foto ketika pertama kali aku nge-chat kamu' },
+      { src: 'foto/2.jpg', caption: 'Kalau ini pas pertama kali ngajak kamu keluar' },
+      { src: 'foto/3.jpg', caption: 'Kita seru-seruan main bareng di Timezone pulang kerja' },
+      { src: 'foto/4.jpg', caption: 'Nyoba ngajakin main ke tempat yang lebih jauh' },
+      { src: 'foto/5.jpg', caption: 'Pas lagi buat video lucu-lucuan di Malang' },
+      { src: 'foto/6.jpg', caption: 'Ngeliatin pasangan itu naik ke pohon sambil berkata dalam hati when ya' }
     ];
 
     // Tanggal mulai berteman untuk penanda waktu. GANTI dengan tanggal yang benar.
