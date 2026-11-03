@@ -871,7 +871,7 @@
       <p class="msg"><span class="typed"></span></p>
     </div>
 
-    <div class="slide" data-type="typed" data-anim="blur" data-text="Kadang aku cuma pengen bilang, senang banget ya kalau punya seseorang kayak kamu 🥰. Rasanya jadi jauh lebih semangat kalau bareng sama orang baik ✨">
+    <div class="slide" data-type="typed" data-anim="blur" data-text="Maaf ya baru ngucapin, baru selesai soalnya bikin ucapannya ini hehe🥰. ✨">
       <p class="msg"><span class="typed"></span></p>
     </div>
 
@@ -958,7 +958,7 @@
        KONFIGURASI — silakan ganti isinya sesuai Novita
        ========================================================= */
     // Pesan rahasia di slide "Tap untuk surprise" (fitur 26)
-    const SECRET_MESSAGE = "Ini rahasia kecil: semoga tahun ini kamu dapat semua hal yang bikin hatimu hangat tiap hari. 💛";
+    const SECRET_MESSAGE = "Ini rahasia kecil: semoga tahun ini kamu dapat semua hal yang bikin hatimu bahagia tiap hari. 💛";
 
     // Galeri kenangan (foto ada di folder foto/). GANTI caption dengan cerita kalian.
     const GALLERY = [
@@ -1160,12 +1160,16 @@
       const text = slide.getAttribute('data-text');
       span.textContent = '';
       slide.classList.remove('done');
+      const chars = [...text];
       let i = 0;
       clearInterval(typeTimer);
       typeTimer = setInterval(() => {
-        span.textContent = text.slice(0, i + 1);
-        i++;
-        if(i >= text.length){
+        const ch = chars[i++];
+        if(ch !== '\uFE0F'){
+          span.appendChild(document.createTextNode(ch));
+          if(ICON_SPLIT.test(ch)) iconify(span); // ikon langsung beranimasi saat muncul
+        }
+        if(i >= chars.length){
           clearInterval(typeTimer);
           slide.classList.add('done');
           iconify(span);
@@ -1211,9 +1215,9 @@
         span.textContent = text;
         total = 1800;
       }
+      iconify(span); // ubah emoji jadi ikon beranimasi sejak awal, bukan setelah selesai
       typeTimer = setTimeout(() => {
         slide.classList.add('done');
-        iconify(span);
         if(onDone) onDone();
       }, total);
     }
@@ -1242,6 +1246,7 @@
       const slide = slides[current];
       const type = slide.dataset.type;
       updateControls();
+      autoScrollPanel(slide);
 
       if(type === 'typed'){
         playTyped(slide, () => scheduleAdvance(READ_PAUSE_MS));
@@ -1441,6 +1446,31 @@
        Mulai
        ========================================================= */
     const controls = $('controls');
+    // ===== auto-scroll panel bila isi terpotong (HP) =====
+    let scrollRAF = null;
+    function stopAutoScroll(){ if(scrollRAF){ cancelAnimationFrame(scrollRAF); scrollRAF = null; } }
+    function autoScrollPanel(slide){
+      stopAutoScroll();
+      const p = slide.querySelector('.panel');
+      if(!p) return;
+      p.scrollTop = 0;
+      setTimeout(() => {
+        if(slides[current] !== slide) return;
+        const max = p.scrollHeight - p.clientHeight;
+        if(max < 8) return;
+        const from = p.scrollTop, start = performance.now();
+        const dur = Math.min(9000, Math.max(3500, max * 28));
+        const step = t => {
+          const k = Math.min(1, (t - start) / dur);
+          const e = k < .5 ? 2 * k * k : 1 - Math.pow(-2 * k + 2, 2) / 2;
+          p.scrollTop = from + (max - from) * e;
+          scrollRAF = (k < 1 && slides[current] === slide) ? requestAnimationFrame(step) : null;
+        };
+        scrollRAF = requestAnimationFrame(step);
+      }, 1800);
+    }
+    ['touchstart', 'wheel', 'keydown'].forEach(ev => document.addEventListener(ev, stopAutoScroll, { passive: true }));
+
     // ===== ikon SVG beranimasi (pengganti emoji) =====
     const ICONS={
       heart:'<svg viewBox="0 0 24 24"><path d="M12 21s-8-5.2-8-11a4.5 4.5 0 018-2.8A4.5 4.5 0 0120 10c0 5.8-8 11-8 11z" fill="#F2587A"/><path d="M7 9a3 3 0 012-1.8" stroke="#fff" stroke-width="1.4" stroke-linecap="round" fill="none" opacity=".7"/></svg>',
